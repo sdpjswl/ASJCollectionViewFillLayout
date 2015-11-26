@@ -31,6 +31,15 @@
   return self;
 }
 
+- (instancetype)initWithCoder:(NSCoder *)coder
+{
+  self = [super initWithCoder:coder];
+  if (self) {
+    [self setupDefaults];
+  }
+  return self;
+}
+
 - (void)setupDefaults
 {
   self.numberOfItemsInRow = 3;
