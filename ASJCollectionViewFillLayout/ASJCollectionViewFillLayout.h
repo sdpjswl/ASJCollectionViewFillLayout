@@ -18,9 +18,9 @@
 
 @interface ASJCollectionViewFillLayout : UICollectionViewLayout
 
-@property (nonatomic) NSInteger numberOfItemsInRow;
-@property (nonatomic) CGFloat itemHeight;
-@property (nonatomic) CGFloat itemSpacing;
+@property (nonatomic) IBInspectable NSInteger numberOfItemsInRow;
+@property (nonatomic) IBInspectable CGFloat itemHeight;
+@property (nonatomic) IBInspectable CGFloat itemSpacing;
 @property (weak, nonatomic) id<ASJCollectionViewFillLayoutDelegate> delegate;
 
 @end
