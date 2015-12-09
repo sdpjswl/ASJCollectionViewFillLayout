@@ -27,7 +27,7 @@ Sets the distance between two collection view items.
 ![alt tag](Images/21.png)
 
 ###To-do
-- Handle case of total collection view items being less than the number of items in one row
+- ~~Handle case of total collection view items being less than the number of items in one row~~
 
 # License
 
