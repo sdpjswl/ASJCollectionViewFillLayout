@@ -22,7 +22,8 @@ Sets the height of an item. The width will be calculated to fill the view.
 ```
 Sets the distance between two collection view items.
 
-![alt tag](Screenshot.png)
+![alt tag](Images/19.png)
+![alt tag](Images/20.png)
 
 ###To-do
 - Handle case of total collection view items being less than the number of items in one row
