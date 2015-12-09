@@ -119,7 +119,10 @@
     column++;
     
     // if item was the last one in current row
-    if (column == _numberOfItemsInRow)
+    // special case handled for when number of items is lesser than
+    // number of items in row
+    if ((numberOfItems < _numberOfItemsInRow && column == numberOfItems) ||
+        (column == _numberOfItemsInRow))
     {
       if (xOffset > contentWidth) {
         contentWidth = xOffset;
