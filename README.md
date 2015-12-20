@@ -1,5 +1,4 @@
-ASJCollectionViewFillLayout
-===========================
+# ASJCollectionViewFillLayout
 
 The standard available UICollectionViewLayout does the job well, but the UI may look asymmetric, depending on the number of items the collection view is displaying. This small layout class attempts to solve this problem. This is a UICollectionViewLayout that fills the full width of the collection view.
 
