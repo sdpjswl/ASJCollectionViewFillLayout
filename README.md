@@ -3,6 +3,16 @@ ASJCollectionViewFillLayout
 
 The standard available UICollectionViewLayout does the job well, but the UI may look asymmetric, depending on the number of items the collection view is displaying. This small layout class attempts to solve this problem. This is a UICollectionViewLayout that fills the full width of the collection view.
 
+# Installation
+
+Cocoapods is the preferred way to install this library. Add this command to your `Podfile`:
+
+```
+pod 'ASJCollectionViewFillLayout'
+```
+
+If you prefer the classic way, just copy the ASJCollectionViewFillLayout folder (.h and .m files) to your project.
+
 # Usage
 
 Creating an ASJCollectionViewFillLayout is easy. It has a simple interface consisting of three properties. You can also use the traditional delegate way to return the attributes you wish to use.
