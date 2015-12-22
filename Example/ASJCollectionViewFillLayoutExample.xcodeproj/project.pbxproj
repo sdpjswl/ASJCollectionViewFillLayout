@@ -13,7 +13,7 @@
 		C01AE3351C05DF96006EE67F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C01AE3331C05DF96006EE67F /* Main.storyboard */; };
 		C01AE3371C05DF96006EE67F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C01AE3361C05DF96006EE67F /* Assets.xcassets */; };
 		C01AE33A1C05DF96006EE67F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C01AE3381C05DF96006EE67F /* LaunchScreen.storyboard */; };
-		C01AE3441C05DFF0006EE67F /* ASJCollectionViewFillLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = C01AE3431C05DFF0006EE67F /* ASJCollectionViewFillLayout.m */; };
+		C0CC18641C2974A4004EDE8D /* ASJCollectionViewFillLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = C0CC18631C2974A4004EDE8D /* ASJCollectionViewFillLayout.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,8 +27,8 @@
 		C01AE3361C05DF96006EE67F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C01AE3391C05DF96006EE67F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C01AE33B1C05DF96006EE67F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		C01AE3421C05DFF0006EE67F /* ASJCollectionViewFillLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASJCollectionViewFillLayout.h; sourceTree = "<group>"; };
-		C01AE3431C05DFF0006EE67F /* ASJCollectionViewFillLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASJCollectionViewFillLayout.m; sourceTree = "<group>"; };
+		C0CC18621C2974A4004EDE8D /* ASJCollectionViewFillLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASJCollectionViewFillLayout.h; sourceTree = "<group>"; };
+		C0CC18631C2974A4004EDE8D /* ASJCollectionViewFillLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASJCollectionViewFillLayout.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,7 +61,7 @@
 		C01AE3291C05DF96006EE67F /* ASJCollectionViewFillLayoutExample */ = {
 			isa = PBXGroup;
 			children = (
-				C01AE3411C05DFF0006EE67F /* ASJCollectionViewFillLayout */,
+				C0CC18611C2974A4004EDE8D /* ASJCollectionViewFillLayout */,
 				C01AE32D1C05DF96006EE67F /* AppDelegate.h */,
 				C01AE32E1C05DF96006EE67F /* AppDelegate.m */,
 				C01AE3301C05DF96006EE67F /* ViewController.h */,
@@ -83,14 +83,15 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		C01AE3411C05DFF0006EE67F /* ASJCollectionViewFillLayout */ = {
+		C0CC18611C2974A4004EDE8D /* ASJCollectionViewFillLayout */ = {
 			isa = PBXGroup;
 			children = (
-				C01AE3421C05DFF0006EE67F /* ASJCollectionViewFillLayout.h */,
-				C01AE3431C05DFF0006EE67F /* ASJCollectionViewFillLayout.m */,
+				C0CC18621C2974A4004EDE8D /* ASJCollectionViewFillLayout.h */,
+				C0CC18631C2974A4004EDE8D /* ASJCollectionViewFillLayout.m */,
 			);
-			path = ASJCollectionViewFillLayout;
-			sourceTree = SOURCE_ROOT;
+			name = ASJCollectionViewFillLayout;
+			path = ../../ASJCollectionViewFillLayout;
+			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
@@ -164,7 +165,7 @@
 			files = (
 				C01AE3321C05DF96006EE67F /* ViewController.m in Sources */,
 				C01AE32F1C05DF96006EE67F /* AppDelegate.m in Sources */,
-				C01AE3441C05DFF0006EE67F /* ASJCollectionViewFillLayout.m in Sources */,
+				C0CC18641C2974A4004EDE8D /* ASJCollectionViewFillLayout.m in Sources */,
 				C01AE32C1C05DF96006EE67F /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -314,6 +315,7 @@
 				C01AE3401C05DF96006EE67F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
