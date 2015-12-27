@@ -94,11 +94,6 @@ static NSString *const reuseIdentifier = @"cell";
   return 3;
 }
 
-- (CGFloat)itemHeight
-{
-  return 70.0;
-}
-
 - (CGFloat)itemSpacing
 {
   return 5.0;

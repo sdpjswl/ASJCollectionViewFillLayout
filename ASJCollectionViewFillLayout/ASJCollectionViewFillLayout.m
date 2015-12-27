@@ -57,7 +57,6 @@
 - (void)setupDefaults
 {
   self.numberOfItemsInRow = 3;
-  self.itemHeight = 75.0;
   self.itemSpacing = 8.0;
 }
 
@@ -71,10 +70,10 @@
   if ([_delegate respondsToSelector:@selector(numberOfItemsInRow)]) {
     _numberOfItemsInRow = [_delegate numberOfItemsInRow];
   }
-  if ([_delegate itemHeight]) {
+  if ([_delegate respondsToSelector:@selector(itemHeight)]) {
     _itemHeight = [_delegate itemHeight];
   }
-  if ([_delegate itemSpacing]) {
+  if ([_delegate respondsToSelector:@selector(itemSpacing)]) {
     _itemSpacing = [_delegate itemSpacing];
   }
   
@@ -115,6 +114,13 @@
     {
       CGFloat availableSpaceForItems = self.collectionView.bounds.size.width - (2 * _itemSpacing) - ((_numberOfItemsInRow - 1) * _itemSpacing);
       CGFloat itemWidth = availableSpaceForItems / _numberOfItemsInRow;
+      
+      // by default, item height is equal to item width
+      // not setting default item height
+      if (!_itemHeight) {
+        _itemHeight = itemWidth;
+      }
+      
       itemSize = CGSizeMake(itemWidth, _itemHeight);
     }
     
