@@ -4,7 +4,7 @@ The standard available UICollectionViewLayout does the job well, but the UI may 
 
 # Installation
 
-Cocoapods is the preferred way to install this library. Add this command to your `Podfile`:
+CocoaPods is the preferred way to install this library. Add this command to your `Podfile`:
 
 ```
 pod 'ASJCollectionViewFillLayout'
