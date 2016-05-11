@@ -57,7 +57,7 @@
 - (void)setupDefaults
 {
   self.numberOfItemsInRow = 3;
-  self.itemSpacing = 8.0;
+  self.itemSpacing = 8.0f;
 }
 
 #pragma mark - Overrides
@@ -80,9 +80,9 @@
   NSUInteger column = 0;
   CGFloat xOffset = _itemSpacing;
   CGFloat yOffset = _itemSpacing;
-  CGFloat rowHeight = 0.0;
-  CGFloat contentWidth = 0.0;
-  CGFloat contentHeight = 0.0;
+  CGFloat rowHeight = 0.0f;
+  CGFloat contentWidth = 0.0f;
+  CGFloat contentHeight = 0.0f;
   
   // store items of any extra items, if present
   NSUInteger numberOfItems = [self.collectionView numberOfItemsInSection:0];

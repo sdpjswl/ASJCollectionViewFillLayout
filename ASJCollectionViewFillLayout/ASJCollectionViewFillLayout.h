@@ -22,6 +22,8 @@
 
 @import UIKit;
 
+NS_ASSUME_NONNULL_BEGIN
+
 @protocol ASJCollectionViewFillLayoutDelegate <NSObject>
 
 @optional
@@ -37,24 +39,26 @@
  *  Sets the number of items in one row. The width for
  *  each item will be calculated accordingly.
  */
-@property (nonatomic) NSInteger numberOfItemsInRow;
+@property (assign, nonatomic) NSInteger numberOfItemsInRow;
 
 /**
  *  Sets the height for a collection view item.
  */
-@property (nonatomic) CGFloat itemHeight;
+@property (assign, nonatomic) CGFloat itemHeight;
 
 /**
  *  Sets the "inter-item spacing" between two collection
  *  view items. This will also set the padding between an
  *  item and the collection view boundary.
  */
-@property (nonatomic) CGFloat itemSpacing;
+@property (assign, nonatomic) CGFloat itemSpacing;
 
 /**
  *  The delegate for the fill layout. You must set this
  *  in order to use the methods defined in the protocol.
  */
-@property (weak, nonatomic) id<ASJCollectionViewFillLayoutDelegate> delegate;
+@property (nullable, weak, nonatomic) id<ASJCollectionViewFillLayoutDelegate> delegate;
 
 @end
+
+NS_ASSUME_NONNULL_END
