@@ -33,12 +33,13 @@ Sets the distance between two collection view items.
 
 ![alt tag](Images/19.png)
 ![alt tag](Images/20.png)
-![alt tag](Images/21.png)
 
 # Credits
+
 - To [this article](http://damir.me/implementing-uicollectionview-layout).
 
-###To-do
+# To-do
+
 - ~~Handle case of total collection view items being less than the number of items in one row~~
 
 # License
