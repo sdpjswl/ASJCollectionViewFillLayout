@@ -31,12 +31,12 @@ Sets the height of an item. The width will be calculated to fill the view.
 ```
 Sets the distance between two collection view items.
 
-![alt tag](Images/19.png)
-![alt tag](Images/20.png)
+![alt tag](Images/7.png)
+![alt tag](Images/10.png)
 
 # Credits
 
-- To [this article](http://damir.me/implementing-uicollectionview-layout).
+- [Implementing UICollectionViewLayout](http://damir.me/implementing-uicollectionview-layout).
 
 # To-do
 
