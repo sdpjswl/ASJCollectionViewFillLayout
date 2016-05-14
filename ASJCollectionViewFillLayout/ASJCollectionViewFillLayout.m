@@ -1,3 +1,4 @@
+//
 //  ASJCollectionViewFillLayout.m
 //
 // Copyright (c) 2015 Sudeep Jaiswal
@@ -22,7 +23,7 @@
 
 #import "ASJCollectionViewFillLayout.h"
 
-// Thanks to: http://damir.me/implementing-uicollectionview-layout
+// Thanks: http://damir.me/implementing-uicollectionview-layout
 
 @interface ASJCollectionViewFillLayout ()
 
