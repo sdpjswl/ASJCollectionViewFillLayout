@@ -68,13 +68,16 @@
   [super prepareLayout];
   
   // read values from delegate if present
-  if ([_delegate respondsToSelector:@selector(numberOfItemsInRow)]) {
+  if ([_delegate respondsToSelector:@selector(numberOfItemsInRow)])
+  {
     _numberOfItemsInRow = [_delegate numberOfItemsInRow];
   }
-  if ([_delegate respondsToSelector:@selector(itemHeight)]) {
+  if ([_delegate respondsToSelector:@selector(itemHeight)])
+  {
     _itemHeight = [_delegate itemHeight];
   }
-  if ([_delegate respondsToSelector:@selector(itemSpacing)]) {
+  if ([_delegate respondsToSelector:@selector(itemSpacing)])
+  {
     _itemSpacing = [_delegate itemSpacing];
   }
   
@@ -92,7 +95,7 @@
   if (extraItems > 0)
   {
     NSMutableIndexSet *temp = [[NSMutableIndexSet alloc] init];
-    for (int i=0; i < extraItems; i++)
+    for (int i=0; i<extraItems; i++)
     {
       NSInteger rowNo = (numberOfItems - 1) - i;
       [temp addIndex:rowNo];
@@ -101,7 +104,7 @@
   }
   
   NSMutableArray *tempAttributes = [[NSMutableArray alloc] init];
-  for (int i=0; i < numberOfItems; i++)
+  for (int i=0; i<numberOfItems; i++)
   {
     // calculate item size. extra items will have different widths
     CGSize itemSize = CGSizeZero;
@@ -176,16 +179,19 @@
 
 - (NSArray *)layoutAttributesForElementsInRect:(CGRect)rect
 {
-  return [_itemAttributes filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(UICollectionViewLayoutAttributes *evaluatedObject, NSDictionary *bindings) {
+  NSPredicate *predicate = [NSPredicate predicateWithBlock:^BOOL(UICollectionViewLayoutAttributes *evaluatedObject, NSDictionary *bindings) {
     return CGRectIntersectsRect(rect, evaluatedObject.frame);
-  }]];
+  }];
+  
+  return [_itemAttributes filteredArrayUsingPredicate:predicate];
 }
 
 #pragma mark - Property setters
 
 - (void)setNumberOfItemsInRow:(NSInteger)numberOfItemsInRow
 {
-  if (_numberOfItemsInRow != numberOfItemsInRow) {
+  if (_numberOfItemsInRow != numberOfItemsInRow)
+  {
     _numberOfItemsInRow = numberOfItemsInRow;
     [self invalidateLayout];
   }
@@ -193,7 +199,8 @@
 
 - (void)setItemHeight:(CGFloat)itemHeight
 {
-  if (_itemHeight != itemHeight) {
+  if (_itemHeight != itemHeight)
+  {
     _itemHeight = itemHeight;
     [self invalidateLayout];
   }
@@ -201,7 +208,8 @@
 
 - (void)setItemSpacing:(CGFloat)itemSpacing
 {
-  if (_itemSpacing != itemSpacing) {
+  if (_itemSpacing != itemSpacing)
+  {
     _itemSpacing = itemSpacing;
     [self invalidateLayout];
   }

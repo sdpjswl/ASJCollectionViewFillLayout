@@ -12,10 +12,9 @@
 static NSInteger const kNoOfItems = 13;
 static NSString *const reuseIdentifier = @"cell";
 
-@interface ViewController () <ASJCollectionViewFillLayoutDelegate> {
-  IBOutlet UICollectionView *aCollectionView;
-}
+@interface ViewController () <ASJCollectionViewFillLayoutDelegate>
 
+@property (weak, nonatomic) IBOutlet UICollectionView *aCollectionView;
 @property (copy, nonatomic) NSArray *objects;
 
 - (void)setup;
@@ -26,13 +25,14 @@ static NSString *const reuseIdentifier = @"cell";
 
 @implementation ViewController
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
   [super viewDidLoad];
-  // Do any additional setup after loading the view, typically from a nib.
   [self setup];
 }
 
-- (void)didReceiveMemoryWarning {
+- (void)didReceiveMemoryWarning
+{
   [super didReceiveMemoryWarning];
   // Dispose of any resources that can be recreated.
 }
@@ -49,7 +49,7 @@ static NSString *const reuseIdentifier = @"cell";
 {
   ASJCollectionViewFillLayout *myLayout = [[ASJCollectionViewFillLayout alloc] init];
   myLayout.delegate = self;
-  aCollectionView.collectionViewLayout = myLayout;
+  _aCollectionView.collectionViewLayout = myLayout;
 }
 
 - (void)setupCollectionViewData

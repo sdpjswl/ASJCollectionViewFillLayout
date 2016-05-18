@@ -1,6 +1,6 @@
 # ASJCollectionViewFillLayout
 
-The standard available `UICollectionViewLayout` does the job well, but the UI may look asymmetric, depending on the number of items the collection view is displaying. This small layout class attempts to solve this problem. This is a `UICollectionViewLayout` that fills the full width of the collection view.
+The standard available `UICollectionViewLayout` does the job well, but the UI may look asymmetric, depending on the number of items the `UICollectionView` is displaying. This library attempts to solve this problem. This is a `UICollectionViewLayout` subclass that fills the full width of the collection view.
 
 # Installation
 
@@ -14,7 +14,7 @@ If you prefer the classic way, just copy the `ASJCollectionViewFillLayout` folde
 
 # Usage
 
-Creating an `ASJCollectionViewFillLayout` is easy. It has a simple interface consisting of three properties. You can also use the traditional delegate way to return the attributes you wish to use.
+Creating an `ASJCollectionViewFillLayout` is easy. It has a simple interface consisting of three properties. You can also use the traditional delegate pattern to return the attributes you wish to use. All are optional.
 
 ```
 @property (assign, nonatomic) NSInteger numberOfItemsInRow;
@@ -32,7 +32,7 @@ Sets the height of an item. The width will be calculated to fill the view.
 Sets the distance between two collection view items.
 
 ![alt tag](Images/7.png)
-![alt tag](Images/10.png)
+![alt tag](Images/8.png)
 
 # Credits
 
