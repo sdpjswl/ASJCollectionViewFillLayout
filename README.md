@@ -36,7 +36,7 @@ Sets the distance between two collection view items.
 
 # Credits
 
-- [Implementing UICollectionViewLayout](http://damir.me/implementing-uicollectionview-layout).
+- To Damir Tursunovic - [Implementing UICollectionViewLayout](http://damir.me/implementing-uicollectionview-layout).
 
 # To-do
 
