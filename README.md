@@ -16,27 +16,39 @@ If you prefer the classic way, just copy the `ASJCollectionViewFillLayout` folde
 
 Creating an `ASJCollectionViewFillLayout` is easy. It has a simple interface consisting of three properties. You can also use the traditional delegate pattern to return the attributes you wish to use. All are optional.
 
-```
+```objc
 @property (assign, nonatomic) NSInteger numberOfItemsInRow;
 ```
 Sets the number of items to show in one row.
 
-```
+```objc
 @property (assign, nonatomic) CGFloat itemHeight;
 ```
 Sets the height of an item. The width will be calculated to fill the view.
 
-```
+```objc
 @property (assign, nonatomic) CGFloat itemSpacing;
 ```
 Sets the distance between two collection view items.
+
+For example:
+
+```objc
+ASJCollectionViewFillLayout *aFillLayout = [[ASJCollectionViewFillLayout alloc] init];
+aFillLayout.numberOfItemsInRow = 3;
+aFillLayout.itemSpacing = 5.0f;
+aFillLayout.itemHeight = 75.0f;
+aCollectionView.collectionViewLayout = aFillLayout;
+```
+
+See the example project for a demonstration of how to use the delegate pattern.
 
 ![alt tag](Images/7.png)
 ![alt tag](Images/8.png)
 
 # Credits
 
-- To Damir Tursunovic - [Implementing UICollectionViewLayout](http://damir.me/implementing-uicollectionview-layout).
+- Damir Tursunovic - [Implementing UICollectionViewLayout](http://damir.me/implementing-uicollectionview-layout).
 
 # To-do
 
