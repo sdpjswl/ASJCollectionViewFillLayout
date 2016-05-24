@@ -6,7 +6,7 @@ Pod::Spec.new do |s|
   s.homepage     = 'https://github.com/sudeepjaiswal/ASJCollectionViewFillLayout'
   s.authors      = { 'Sudeep Jaiswal' => 'sudeepjaiswal87@gmail.com' }
   s.summary      = 'A flow layout style UICollectionViewLayout that fills the full width of the collection view'
-  s.source       = { :git => 'https://github.com/sudeepjaiswal/ASJCollectionViewFillLayout.git', :tag => '0.2' }
+  s.source       = { :git => 'https://github.com/sudeepjaiswal/ASJCollectionViewFillLayout.git', :tag => s.version }
   s.source_files = 'ASJCollectionViewFillLayout/*.{h,m}'
   s.requires_arc = true
 end
