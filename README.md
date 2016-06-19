@@ -6,7 +6,7 @@ The standard available `UICollectionViewLayout` does the job well, but the UI ma
 
 CocoaPods is the preferred way to install this library. Add this command to your `Podfile`:
 
-```
+```ruby
 pod 'ASJCollectionViewFillLayout'
 ```
 
@@ -19,16 +19,19 @@ Creating an `ASJCollectionViewFillLayout` is easy. It has a simple interface con
 ```objc
 @property (assign, nonatomic) NSInteger numberOfItemsInRow;
 ```
+
 Sets the number of items to show in one row.
 
 ```objc
 @property (assign, nonatomic) CGFloat itemHeight;
 ```
+
 Sets the height of an item. The width will be calculated to fill the view.
 
 ```objc
 @property (assign, nonatomic) CGFloat itemSpacing;
 ```
+
 Sets the distance between two collection view items.
 
 For example:
@@ -48,11 +51,11 @@ See the example project for a demonstration of how to use the delegate pattern.
 
 # Credits
 
-- Damir Tursunovic - [Implementing UICollectionViewLayout](http://damir.me/implementing-uicollectionview-layout).
+- Damir Tursunovic - [Implementing UICollectionViewLayout](http://damir.me/implementing-uicollectionview-layout)
 
 # To-do
 
-- ~~Handle case of total collection view items being less than the number of items in one row~~
+- ~~Handle case of total collection view items being less than the number of items in one row.~~
 
 # License
 
