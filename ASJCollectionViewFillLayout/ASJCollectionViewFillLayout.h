@@ -25,6 +25,12 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+typedef NS_ENUM(NSInteger, ASJCollectionViewFillLayoutDirection)
+{
+  ASJCollectionViewFillLayoutVertical,
+  ASJCollectionViewFillLayoutHorizontal
+};
+
 @protocol ASJCollectionViewFillLayoutDelegate <NSObject>
 
 @optional
@@ -37,13 +43,12 @@ NS_ASSUME_NONNULL_BEGIN
 @interface ASJCollectionViewFillLayout : UICollectionViewLayout
 
 /**
- *  Sets the number of items in one row. The width for
- *  each item will be calculated accordingly.
+ *  Sets the number of items in one row. The width for each item will be calculated accordingly.
  */
 @property (assign, nonatomic) NSInteger numberOfItemsInRow;
 
 /**
- *  Sets the height for a collection view item.
+ *  Sets the height for a collection view item. By default, the height is set the same as the width that is calculated.
  */
 @property (assign, nonatomic) CGFloat itemHeight;
 
@@ -53,6 +58,11 @@ NS_ASSUME_NONNULL_BEGIN
  *  item and the collection view boundary.
  */
 @property (assign, nonatomic) CGFloat itemSpacing;
+
+/**
+ *  Arranges the collection view items vertically or horizontally. Default is `ASJCollectionViewFillLayoutVertical`.
+ */
+@property (assign, nonatomic) ASJCollectionViewFillLayoutDirection direction;
 
 /**
  *  The delegate for the fill layout. You must set this

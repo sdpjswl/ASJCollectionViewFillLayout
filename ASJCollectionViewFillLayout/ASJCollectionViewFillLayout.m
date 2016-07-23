@@ -57,8 +57,8 @@
 
 - (void)setupDefaults
 {
-  self.numberOfItemsInRow = 3;
   self.itemSpacing = 8.0f;
+  self.direction = ASJCollectionViewFillLayoutVertical;
 }
 
 #pragma mark - Overrides
@@ -72,6 +72,8 @@
   {
     _numberOfItemsInRow = [_delegate numberOfItemsInRow];
   }
+  NSAssert(_numberOfItemsInRow > 0, @"Collection view must have at least one item in row. Set 'numberOfItemsInRow'.");
+  
   if ([_delegate respondsToSelector:@selector(itemHeight)])
   {
     _itemHeight = [_delegate itemHeight];
@@ -81,7 +83,6 @@
     _itemSpacing = [_delegate itemSpacing];
   }
   
-  NSUInteger column = 0;
   CGFloat xOffset = _itemSpacing;
   CGFloat yOffset = _itemSpacing;
   CGFloat rowHeight = 0.0f;
@@ -104,67 +105,75 @@
   }
   
   NSMutableArray *tempAttributes = [[NSMutableArray alloc] init];
-  for (int i=0; i<numberOfItems; i++)
+  for (int i = 0; i < numberOfItems; i++)
   {
-    // calculate item size. extra items will have different widths
-    CGSize itemSize = CGSizeZero;
-    if (_extraIndexes.count && [_extraIndexes containsIndex:i])
+    if (_direction == ASJCollectionViewFillLayoutVertical)
     {
-      CGFloat availableSpaceForItems = self.collectionView.bounds.size.width - (2 * _itemSpacing) - ((_extraIndexes.count - 1) * _itemSpacing);
-      CGFloat itemWidth = availableSpaceForItems / _extraIndexes.count;
-      itemSize = CGSizeMake(itemWidth, _itemHeight);
+      static NSUInteger column = 0;
+      
+      // calculate item size. extra items will have different widths
+      CGSize itemSize = CGSizeZero;
+      if (_extraIndexes.count && [_extraIndexes containsIndex:i])
+      {
+        CGFloat availableSpaceForItems = self.collectionView.bounds.size.width - (2 * _itemSpacing) - ((_extraIndexes.count - 1) * _itemSpacing);
+        CGFloat itemWidth = availableSpaceForItems / _extraIndexes.count;
+        itemSize = CGSizeMake(itemWidth, _itemHeight);
+      }
+      else
+      {
+        CGFloat availableSpaceForItems = self.collectionView.bounds.size.width - (2 * _itemSpacing) - ((_numberOfItemsInRow - 1) * _itemSpacing);
+        CGFloat itemWidth = availableSpaceForItems / _numberOfItemsInRow;
+        
+        // by default, item height is equal to item width
+        // not setting default item height
+        if (!_itemHeight) {
+          _itemHeight = itemWidth;
+        }
+        
+        itemSize = CGSizeMake(itemWidth, _itemHeight);
+      }
+      
+      if (itemSize.height > rowHeight) {
+        rowHeight = itemSize.height;
+      }
+      
+      // create layout attributes objects
+      NSIndexPath *indexPath = [NSIndexPath indexPathForItem:i inSection:0];
+      UICollectionViewLayoutAttributes *attributes = [UICollectionViewLayoutAttributes layoutAttributesForCellWithIndexPath:indexPath];
+      attributes.frame = CGRectIntegral(CGRectMake(xOffset, yOffset, itemSize.width, itemSize.height));
+      [tempAttributes addObject:attributes];
+      
+      // move 'x' for next item
+      xOffset = xOffset + itemSize.width + _itemSpacing;
+      column++;
+      
+      // if item was the last one in current row
+      // special case handled for when number of items is lesser than
+      // number of items in row
+      if ((numberOfItems < _numberOfItemsInRow && column == numberOfItems) ||
+          (column == _numberOfItemsInRow))
+      {
+        if (xOffset > contentWidth) {
+          contentWidth = xOffset;
+        }
+        
+        // reset
+        column = 0;
+        xOffset = _itemSpacing;
+        yOffset += rowHeight + _itemSpacing;
+      }
+      
+      // calculate content height
+      UICollectionViewLayoutAttributes *lastAttributes = tempAttributes.lastObject;
+      contentHeight = lastAttributes.frame.origin.y + lastAttributes.frame.size.height;
+      _contentSize = CGSizeMake(contentWidth, contentHeight + _itemSpacing);
+      _itemAttributes = [NSArray arrayWithArray:tempAttributes];
     }
     else
     {
-      CGFloat availableSpaceForItems = self.collectionView.bounds.size.width - (2 * _itemSpacing) - ((_numberOfItemsInRow - 1) * _itemSpacing);
-      CGFloat itemWidth = availableSpaceForItems / _numberOfItemsInRow;
-      
-      // by default, item height is equal to item width
-      // not setting default item height
-      if (!_itemHeight) {
-        _itemHeight = itemWidth;
-      }
-      
-      itemSize = CGSizeMake(itemWidth, _itemHeight);
-    }
-    
-    if (itemSize.height > rowHeight) {
-      rowHeight = itemSize.height;
-    }
-    
-    // create layout attributes objects
-    NSIndexPath *indexPath = [NSIndexPath indexPathForItem:i inSection:0];
-    UICollectionViewLayoutAttributes *attributes = [UICollectionViewLayoutAttributes layoutAttributesForCellWithIndexPath:indexPath];
-    attributes.frame = CGRectIntegral(CGRectMake(xOffset, yOffset, itemSize.width, itemSize.height));
-    [tempAttributes addObject:attributes];
-    
-    // move 'x' for next item
-    xOffset = xOffset + itemSize.width + _itemSpacing;
-    column++;
-    
-    // if item was the last one in current row
-    // special case handled for when number of items is lesser than
-    // number of items in row
-    if ((numberOfItems < _numberOfItemsInRow && column == numberOfItems) ||
-        (column == _numberOfItemsInRow))
-    {
-      if (xOffset > contentWidth) {
-        contentWidth = xOffset;
-      }
-      
-      // reset
-      column = 0;
-      xOffset = _itemSpacing;
-      yOffset += rowHeight + _itemSpacing;
+      // horizontal
     }
   }
-  
-  // calculate content height
-  UICollectionViewLayoutAttributes *attributes = tempAttributes.lastObject;
-  contentHeight = attributes.frame.origin.y + attributes.frame.size.height;
-  _contentSize = CGSizeMake(contentWidth, contentHeight);
-  _itemAttributes = [NSArray arrayWithArray:tempAttributes];
-  self.collectionView.alwaysBounceVertical = YES;
 }
 
 - (CGSize)collectionViewContentSize
@@ -211,6 +220,15 @@
   if (_itemSpacing != itemSpacing)
   {
     _itemSpacing = itemSpacing;
+    [self invalidateLayout];
+  }
+}
+
+- (void)setDirection:(ASJCollectionViewFillLayoutDirection)direction
+{
+  if (_direction != direction)
+  {
+    _direction = direction;
     [self invalidateLayout];
   }
 }
