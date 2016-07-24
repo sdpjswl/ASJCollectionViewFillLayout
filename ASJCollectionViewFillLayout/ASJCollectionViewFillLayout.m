@@ -57,6 +57,7 @@
 
 - (void)setupDefaults
 {
+  self.numberOfItemsInRow = 1;
   self.itemSpacing = 8.0f;
   self.direction = ASJCollectionViewFillLayoutVertical;
 }
@@ -72,8 +73,6 @@
   {
     _numberOfItemsInRow = [_delegate numberOfItemsInRow];
   }
-  NSAssert(_numberOfItemsInRow > 0, @"Collection view must have at least one item in row. Set 'numberOfItemsInRow'.");
-  
   if ([_delegate respondsToSelector:@selector(itemHeight)])
   {
     _itemHeight = [_delegate itemHeight];
@@ -89,7 +88,7 @@
   CGFloat contentWidth = 0.0f;
   CGFloat contentHeight = 0.0f;
   
-  // store items of any extra items, if present
+  // store indexes of any extra items, if present
   NSUInteger numberOfItems = [self.collectionView numberOfItemsInSection:0];
   NSInteger extraItems = numberOfItems % _numberOfItemsInRow;
   

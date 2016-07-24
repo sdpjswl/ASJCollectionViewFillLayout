@@ -49,8 +49,8 @@ static NSString *const reuseIdentifier = @"cell";
 {
   ASJCollectionViewFillLayout *myLayout = [[ASJCollectionViewFillLayout alloc] init];
   myLayout.delegate = self;
-  myLayout.direction = ASJCollectionViewFillLayoutVertical;
-//  myLayout.direction = ASJCollectionViewFillLayoutHorizontal;
+//  myLayout.direction = ASJCollectionViewFillLayoutVertical;
+  myLayout.direction = ASJCollectionViewFillLayoutHorizontal;
   _aCollectionView.collectionViewLayout = myLayout;
 }
 
