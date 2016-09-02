@@ -30,7 +30,9 @@
 @property (nonatomic) CGSize contentSize;
 @property (copy, nonatomic) NSIndexSet *extraIndexes;
 @property (copy, nonatomic) NSArray *itemAttributes;
+@property (readonly, weak, nonatomic) NSNotificationCenter *notificationCenter;
 
+- (void)setup;
 - (void)setupDefaults;
 
 @end
@@ -41,7 +43,7 @@
 {
   self = [super init];
   if (self) {
-    [self setupDefaults];
+    [self setup];
   }
   return self;
 }
@@ -50,15 +52,40 @@
 {
   self = [super initWithCoder:coder];
   if (self) {
-    [self setupDefaults];
+    [self setup];
   }
   return self;
+}
+
+#pragma mark - Setup
+
+- (void)setup
+{
+  [self setupDefaults];
+  [self listenForOrientationChanges];
 }
 
 - (void)setupDefaults
 {
   self.numberOfItemsInRow = 1;
   self.itemSpacing = 8.0f;
+}
+
+#pragma mark - Orientation
+
+- (void)listenForOrientationChanges
+{
+  [self.notificationCenter addObserver:self selector:@selector(orientationDidChange:) name:UIDeviceOrientationDidChangeNotification object:nil];
+}
+
+- (void)orientationDidChange:(NSNotification *)note
+{
+  [self invalidateLayout];
+}
+
+- (NSNotificationCenter *)notificationCenter
+{
+  return [NSNotificationCenter defaultCenter];
 }
 
 #pragma mark - Overrides
