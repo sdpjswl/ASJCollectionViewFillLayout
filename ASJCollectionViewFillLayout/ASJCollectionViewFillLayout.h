@@ -43,7 +43,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (assign, nonatomic) NSInteger numberOfItemsInRow;
 
 /**
- *  Sets the height for a collection view item.
+ *  Sets the height for a collection view item. By default, the height is set the same as the width that is calculated.
  */
 @property (assign, nonatomic) CGFloat itemHeight;
 
