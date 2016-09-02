@@ -57,7 +57,7 @@
 
 - (void)setupDefaults
 {
-  self.numberOfItemsInRow = 3;
+  self.numberOfItemsInRow = 1;
   self.itemSpacing = 8.0f;
 }
 
@@ -72,6 +72,8 @@
   {
     _numberOfItemsInRow = [_delegate numberOfItemsInRow];
   }
+  NSAssert(_numberOfItemsInRow > 0, @"Collection view must have at least one item in row. Set 'numberOfItemsInRow'.");
+  
   if ([_delegate respondsToSelector:@selector(itemHeight)])
   {
     _itemHeight = [_delegate itemHeight];
