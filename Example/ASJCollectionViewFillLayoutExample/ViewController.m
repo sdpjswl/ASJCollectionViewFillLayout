@@ -82,7 +82,7 @@ static NSString *const reuseIdentifier = @"cell";
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-  NSString *message = [NSString stringWithFormat:@"Item %d tapped", indexPath.row + 1];
+  NSString *message = [NSString stringWithFormat:@"Item %ld tapped", (long)indexPath.row + 1];
   UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Tap" message:message delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
   [alert show];
 }
