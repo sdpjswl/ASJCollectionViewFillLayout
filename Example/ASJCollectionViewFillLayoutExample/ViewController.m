@@ -9,7 +9,7 @@
 #import "ViewController.h"
 #import "ASJCollectionViewFillLayout.h"
 
-static NSInteger const kNoOfItems = 25;
+static NSInteger const kNoOfItems = 17;
 static NSString *const reuseIdentifier = @"cell";
 
 @interface ViewController () <ASJCollectionViewFillLayoutDelegate>
