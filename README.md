@@ -56,6 +56,7 @@ See the example project for a demonstration of how to use the delegate pattern.
 # To-do
 
 - ~~Handle case of total collection view items being less than the number of items in one row.~~
+- Add option for horizontal direction; try subclassing `UICollectionViewFlowLayout` itself.
 
 # License
 
