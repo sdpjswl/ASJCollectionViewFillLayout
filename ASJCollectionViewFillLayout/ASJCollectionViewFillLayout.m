@@ -191,7 +191,7 @@
   // calculate content height
   UICollectionViewLayoutAttributes *attributes = tempAttributes.lastObject;
   contentHeight = attributes.frame.origin.y + attributes.frame.size.height;
-  _contentSize = CGSizeMake(contentWidth, contentHeight);
+  _contentSize = CGSizeMake(contentWidth, contentHeight + _itemSpacing);
   _itemAttributes = [NSArray arrayWithArray:tempAttributes];
   self.collectionView.alwaysBounceVertical = YES;
 }
