@@ -1,5 +1,16 @@
 # Change Log
 
+## [1.0](https://github.com/sudeepjaiswal/ASJCollectionViewFillLayout/releases/tag/1.0)
+Released on Friday, 2 September, 2016.
+
+#### Added
+* Added change log.
+* Added orientation support (fixes issue #2).
+
+#### Fixed
+* Fixed a potential bug where it was possible to have a collection view with zero items specified in a row.
+* Fixed a UI issue where the bottom-most items would stick to the bottom edge and not be padded.
+
 ## [0.2](https://github.com/sudeepjaiswal/ASJCollectionViewFillLayout/releases/tag/0.2)
 Released on Wednesday, 18 May, 2016.
 
