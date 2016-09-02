@@ -83,6 +83,11 @@
   [self invalidateLayout];
 }
 
+- (void)dealloc
+{
+  [self.notificationCenter removeObserver:self];
+}
+
 - (NSNotificationCenter *)notificationCenter
 {
   return [NSNotificationCenter defaultCenter];
