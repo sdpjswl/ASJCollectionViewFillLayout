@@ -69,6 +69,7 @@
 {
   self.numberOfItemsInRow = 1;
   self.itemSpacing = 8.0f;
+  self.stretchesLastItems = YES;
 }
 
 #pragma mark - Orientation
@@ -142,7 +143,7 @@
   {
     // calculate item size. extra items will have different widths
     CGSize itemSize = CGSizeZero;
-    if (_extraIndexes.count && [_extraIndexes containsIndex:i])
+    if (self.stretchesLastItems  && _extraIndexes.count && [_extraIndexes containsIndex:i])
     {
       CGFloat availableSpaceForItems = self.collectionView.bounds.size.width - (2 * _itemSpacing) - ((_extraIndexes.count - 1) * _itemSpacing);
       CGFloat itemWidth = availableSpaceForItems / _extraIndexes.count;
