@@ -60,6 +60,13 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @property (nullable, weak, nonatomic) id<ASJCollectionViewFillLayoutDelegate> delegate;
 
+/**
+ *  Set the stretching behavior for the items in the last "row"
+ *  If set to NO all items will have the same size, YES stretches them 
+ *  across the colleciton view width (default behavior)
+ */
+@property (assign, nonatomic) BOOL stretchesLastItems;
+
 @end
 
 NS_ASSUME_NONNULL_END
