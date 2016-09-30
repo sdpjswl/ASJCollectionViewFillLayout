@@ -19,20 +19,22 @@ Creating an `ASJCollectionViewFillLayout` is easy. It has a simple interface con
 ```objc
 @property (assign, nonatomic) NSInteger numberOfItemsInRow;
 ```
-
 Sets the number of items to show in one row.
 
 ```objc
 @property (assign, nonatomic) CGFloat itemHeight;
 ```
-
 Sets the height of an item. The width will be calculated to fill the view.
 
 ```objc
 @property (assign, nonatomic) CGFloat itemSpacing;
 ```
-
 Sets the distance between two collection view items.
+
+```objc
+@property (assign, nonatomic) BOOL stretchesLastItems;
+```
+Sets whether the last items should be stretched to occupy the full width of the `UICollectionView`. Defaults to `YES`.
 
 For example:
 
@@ -41,6 +43,7 @@ ASJCollectionViewFillLayout *aFillLayout = [[ASJCollectionViewFillLayout alloc] 
 aFillLayout.numberOfItemsInRow = 3;
 aFillLayout.itemSpacing = 5.0f;
 aFillLayout.itemHeight = 75.0f;
+aFillLayout.stretchesLastItems = NO;
 aCollectionView.collectionViewLayout = aFillLayout;
 ```
 
@@ -52,6 +55,7 @@ See the example project for a demonstration of how to use the delegate pattern.
 # Credits
 
 - Damir Tursunovic - [Implementing UICollectionViewLayout](http://damir.me/implementing-uicollectionview-layout)
+- [Oggerschummer](https://github.com/Oggerschummer) for adding `stretchesLastItems` property
 
 # To-do
 
