@@ -65,7 +65,7 @@ NS_ASSUME_NONNULL_BEGIN
  *  If set to NO all items will have the same size, YES stretches them 
  *  across the colleciton view width (default behavior)
  */
-@property (nonatomic, assign) BOOL stretchesLastItems;
+@property (assign, nonatomic) BOOL stretchesLastItems;
 
 @end
 
