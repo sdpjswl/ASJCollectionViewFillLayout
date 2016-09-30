@@ -1,5 +1,11 @@
 # Change Log
 
+## [1.1](https://github.com/sudeepjaiswal/ASJCollectionViewFillLayout/releases/tag/1.1)
+Released on Friday, 30 September, 2016.
+
+#### Added
+* Merged [pull request #3](https://github.com/sudeepjaiswal/ASJCollectionViewFillLayout/pull/3) that adds a new property `stretchesLastItems`.
+
 ## [1.0](https://github.com/sudeepjaiswal/ASJCollectionViewFillLayout/releases/tag/1.0)
 Released on Friday, 2 September, 2016.
 
