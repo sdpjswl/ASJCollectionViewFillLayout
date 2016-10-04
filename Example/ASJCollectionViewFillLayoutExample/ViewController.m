@@ -9,7 +9,7 @@
 #import "ViewController.h"
 #import "ASJCollectionViewFillLayout.h"
 
-static NSInteger const kNoOfItems = 14;
+static NSInteger const kNoOfItems = 20;
 static NSString *const reuseIdentifier = @"cell";
 
 @interface ViewController () <ASJCollectionViewFillLayoutDelegate>
@@ -93,9 +93,14 @@ static NSString *const reuseIdentifier = @"cell";
 
 #pragma mark - ASJCollectionViewFillLayoutDelegate
 
-- (NSInteger)numberOfItemsInRow
+- (NSInteger)numberOfItemsInSide
 {
   return 3;
+}
+
+- (CGFloat)itemLength
+{
+  return 100.0f;
 }
 
 - (CGFloat)itemSpacing
