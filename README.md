@@ -17,19 +17,24 @@ If you prefer the classic way, just copy the `ASJCollectionViewFillLayout` folde
 Creating an `ASJCollectionViewFillLayout` is easy. It has a simple interface consisting of three properties. You can also use the traditional delegate pattern to return the attributes you wish to use. All are optional.
 
 ```objc
-@property (assign, nonatomic) NSInteger numberOfItemsInRow;
+@property (assign, nonatomic) NSInteger numberOfItemsInSide;
 ```
-Sets the number of items to show in one row.
+Sets the number of items to show in one row or column, depending on the layout's `direction` property.
 
 ```objc
-@property (assign, nonatomic) CGFloat itemHeight;
+@property (assign, nonatomic) CGFloat itemLength;
 ```
-Sets the height of an item. The width will be calculated to fill the view.
+Sets the width or height of an item, depending on the layout's `direction` property. For vertical direction, this sets the item height and for horizontal direction, this sets the item width.
 
 ```objc
 @property (assign, nonatomic) CGFloat itemSpacing;
 ```
 Sets the distance between two collection view items.
+
+```objc
+@property (assign, nonatomic) ASJCollectionViewFillLayoutDirection direction;
+```
+Sets the direction in which the collection view items are laid out. Valid options are `ASJCollectionViewFillLayoutVertical` and `ASJCollectionViewFillLayoutHorizontal`. Defaults to `ASJCollectionViewFillLayoutVertical`.
 
 ```objc
 @property (assign, nonatomic) BOOL stretchesLastItems;
