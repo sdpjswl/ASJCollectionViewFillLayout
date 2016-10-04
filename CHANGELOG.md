@@ -1,5 +1,17 @@
 # Change Log
 
+## [2.0](https://github.com/sudeepjaiswal/ASJCollectionViewFillLayout/releases/tag/2.0)
+Released on Tuesday, 4 October, 2016.
+
+This is a major release and breaks things in the old versions. Everyone is recommended to update to version 2.0.
+
+#### Added
+* Added property `direction` to layout items in vertical or horizontal direction.
+
+#### Changed
+* `numberOfItemsInRow` has been renamed to `numberOfItemsInSide`.
+* `itemHeight` has been renamed to `itemLength`.
+
 ## [1.1](https://github.com/sudeepjaiswal/ASJCollectionViewFillLayout/releases/tag/1.1)
 Released on Friday, 30 September, 2016.
 
