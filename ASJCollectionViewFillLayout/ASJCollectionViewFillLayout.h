@@ -25,11 +25,17 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+typedef NS_ENUM(NSInteger, ASJCollectionViewFillLayoutDirection)
+{
+  ASJCollectionViewFillLayoutVertical,
+  ASJCollectionViewFillLayoutHorizontal
+};
+
 @protocol ASJCollectionViewFillLayoutDelegate <NSObject>
 
 @optional
-- (NSInteger)numberOfItemsInRow;
-- (CGFloat)itemHeight;
+- (NSInteger)numberOfItemsInSide;
+- (CGFloat)itemLength;
 - (CGFloat)itemSpacing;
 
 @end
@@ -37,22 +43,28 @@ NS_ASSUME_NONNULL_BEGIN
 @interface ASJCollectionViewFillLayout : UICollectionViewLayout
 
 /**
- *  Sets the number of items in one row. The width for
- *  each item will be calculated accordingly.
+ *  Sets the number of items in one row or column. For `ASJCollectionViewFillLayoutVertical`, the collection view will scroll vertically so this property refers to the item count in one row.
+ *  Similarly, for `ASJCollectionViewFillLayoutHorizontal`, the collection view scrolls horizontally and this property refers to the item count in one column.
+ *  In each case, the width or height for each item will be calculated accordingly.
  */
-@property (assign, nonatomic) NSInteger numberOfItemsInRow;
+@property (assign, nonatomic) NSInteger numberOfItemsInSide;
 
 /**
  *  Sets the height for a collection view item. By default, the height is set the same as the width that is calculated.
  */
-@property (assign, nonatomic) CGFloat itemHeight;
+@property (assign, nonatomic) CGFloat itemLength;
 
 /**
- *  Sets the "inter-item spacing" between two collection
+ *  Sets the 'inter-item spacing' between two collection
  *  view items. This will also set the padding between an
  *  item and the collection view boundary.
  */
 @property (assign, nonatomic) CGFloat itemSpacing;
+
+/**
+ *  Arranges the collection view items vertically or horizontally. Default is `ASJCollectionViewFillLayoutVertical`.
+ */
+@property (assign, nonatomic) ASJCollectionViewFillLayoutDirection direction;
 
 /**
  *  The delegate for the fill layout. You must set this

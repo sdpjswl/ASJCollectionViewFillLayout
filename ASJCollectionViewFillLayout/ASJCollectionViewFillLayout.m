@@ -27,13 +27,16 @@
 
 @interface ASJCollectionViewFillLayout ()
 
-@property (nonatomic) CGSize contentSize;
+@property (readonly, nonatomic) NSInteger numberOfItemsInCollectionView;
+@property (assign, nonatomic) CGSize contentSize;
 @property (copy, nonatomic) NSIndexSet *extraIndexes;
 @property (copy, nonatomic) NSArray *itemAttributes;
 @property (readonly, weak, nonatomic) NSNotificationCenter *notificationCenter;
 
 - (void)setup;
 - (void)setupDefaults;
+- (void)prepareVerticalLayout;
+- (void)prepareHorizontalLayout;
 
 @end
 
@@ -100,68 +103,83 @@
 {
   [super prepareLayout];
   
-  // read values from delegate if present
-  if ([_delegate respondsToSelector:@selector(numberOfItemsInRow)])
+  // read values from delegate if available
+  if ([_delegate respondsToSelector:@selector(numberOfItemsInSide)])
   {
-    _numberOfItemsInRow = [_delegate numberOfItemsInRow];
+    _numberOfItemsInSide = [_delegate numberOfItemsInSide];
   }
   NSAssert(_numberOfItemsInRow > 0, @"Collection view must have at least one item in row. Set 'numberOfItemsInRow'.");
   
   if ([_delegate respondsToSelector:@selector(itemHeight)])
   {
-    _itemHeight = [_delegate itemHeight];
+    _itemLength = [_delegate itemLength];
   }
   if ([_delegate respondsToSelector:@selector(itemSpacing)])
   {
     _itemSpacing = [_delegate itemSpacing];
   }
   
-  NSUInteger column = 0;
+  _itemAttributes = nil;
+  _extraIndexes = nil;
+  _contentSize = CGSizeZero;
+  
+  // store indexes of any extra items, if present
+  NSInteger numberOfItems = self.numberOfItemsInCollectionView;
+  NSInteger extraItems = numberOfItems % _numberOfItemsInSide;
+  
+  if (extraItems > 0)
+  {
+    NSMutableIndexSet *indexes = [[NSMutableIndexSet alloc] init];
+    for (int i=0; i<extraItems; i++)
+    {
+      NSInteger idx = (numberOfItems - 1) - i;
+      [indexes addIndex:idx];
+    }
+    _extraIndexes = indexes;
+  }
+  
+  if (_direction == ASJCollectionViewFillLayoutVertical) {
+    [self prepareVerticalLayout];
+  }
+  else {
+    [self prepareHorizontalLayout];
+  }
+}
+
+- (void)prepareVerticalLayout
+{
   CGFloat xOffset = _itemSpacing;
   CGFloat yOffset = _itemSpacing;
   CGFloat rowHeight = 0.0f;
   CGFloat contentWidth = 0.0f;
   CGFloat contentHeight = 0.0f;
+  NSUInteger column = 0;
+  NSInteger numberOfItems = self.numberOfItemsInCollectionView;
+  NSMutableArray *layoutAttributes = [[NSMutableArray alloc] init];
   
-  // store items of any extra items, if present
-  NSUInteger numberOfItems = [self.collectionView numberOfItemsInSection:0];
-  NSInteger extraItems = numberOfItems % _numberOfItemsInRow;
-  
-  if (extraItems > 0)
+  for (int i = 0; i < numberOfItems; i++)
   {
-    NSMutableIndexSet *temp = [[NSMutableIndexSet alloc] init];
-    for (int i=0; i<extraItems; i++)
-    {
-      NSInteger rowNo = (numberOfItems - 1) - i;
-      [temp addIndex:rowNo];
-    }
-    _extraIndexes = temp;
-  }
-  
-  NSMutableArray *tempAttributes = [[NSMutableArray alloc] init];
-  for (int i=0; i<numberOfItems; i++)
-  {
+    CGFloat itemWidth = 0.0f;
+    
     // calculate item size. extra items will have different widths
     CGSize itemSize = CGSizeZero;
     if (self.stretchesLastItems  && _extraIndexes.count && [_extraIndexes containsIndex:i])
     {
       CGFloat availableSpaceForItems = self.collectionView.bounds.size.width - (2 * _itemSpacing) - ((_extraIndexes.count - 1) * _itemSpacing);
-      CGFloat itemWidth = availableSpaceForItems / _extraIndexes.count;
-      itemSize = CGSizeMake(itemWidth, _itemHeight);
+      itemWidth = availableSpaceForItems / _extraIndexes.count;
     }
     else
     {
-      CGFloat availableSpaceForItems = self.collectionView.bounds.size.width - (2 * _itemSpacing) - ((_numberOfItemsInRow - 1) * _itemSpacing);
-      CGFloat itemWidth = availableSpaceForItems / _numberOfItemsInRow;
-      
-      // by default, item height is equal to item width
-      // not setting default item height
-      if (!_itemHeight) {
-        _itemHeight = itemWidth;
-      }
-      
-      itemSize = CGSizeMake(itemWidth, _itemHeight);
+      CGFloat availableSpaceForItems = self.collectionView.bounds.size.width - (2 * _itemSpacing) - ((_numberOfItemsInSide - 1) * _itemSpacing);
+      itemWidth = availableSpaceForItems / _numberOfItemsInSide;
     }
+    
+    // by default, item height is equal to item width
+    // if not setting default item width
+    if (!_itemLength) {
+      _itemLength = itemWidth;
+    }
+    CGSize itemSize = CGSizeMake(itemWidth, _itemLength);
     
     if (itemSize.height > rowHeight) {
       rowHeight = itemSize.height;
@@ -171,7 +189,7 @@
     NSIndexPath *indexPath = [NSIndexPath indexPathForItem:i inSection:0];
     UICollectionViewLayoutAttributes *attributes = [UICollectionViewLayoutAttributes layoutAttributesForCellWithIndexPath:indexPath];
     attributes.frame = CGRectIntegral(CGRectMake(xOffset, yOffset, itemSize.width, itemSize.height));
-    [tempAttributes addObject:attributes];
+    [layoutAttributes addObject:attributes];
     
     // move 'x' for next item
     xOffset = xOffset + itemSize.width + _itemSpacing;
@@ -180,8 +198,8 @@
     // if item was the last one in current row
     // special case handled for when number of items is lesser than
     // number of items in row
-    if ((numberOfItems < _numberOfItemsInRow && column == numberOfItems) ||
-        (column == _numberOfItemsInRow))
+    if ((numberOfItems < _numberOfItemsInSide && column == numberOfItems) ||
+        (column == _numberOfItemsInSide))
     {
       if (xOffset > contentWidth) {
         contentWidth = xOffset;
@@ -192,7 +210,25 @@
       xOffset = _itemSpacing;
       yOffset += rowHeight + _itemSpacing;
     }
+    
+    // calculate content height
+    UICollectionViewLayoutAttributes *lastAttributes = layoutAttributes.lastObject;
+    contentHeight = lastAttributes.frame.origin.y + lastAttributes.frame.size.height;
+    _contentSize = CGSizeMake(contentWidth, contentHeight + _itemSpacing);
+    _itemAttributes = [NSArray arrayWithArray:layoutAttributes];
   }
+}
+
+- (void)prepareHorizontalLayout
+{
+  CGFloat xOffset = _itemSpacing;
+  CGFloat yOffset = _itemSpacing;
+  CGFloat columnWidth = 0.0f;
+  CGFloat contentWidth = 0.0f;
+  CGFloat contentHeight = 0.0f;
+  NSUInteger row = 0;
+  NSInteger numberOfItems = self.numberOfItemsInCollectionView;
+  NSMutableArray *layoutAttributes = [[NSMutableArray alloc] init];
   
   // calculate content height
   UICollectionViewLayoutAttributes *attributes = tempAttributes.lastObject;
@@ -214,29 +250,29 @@
 
 - (NSArray *)layoutAttributesForElementsInRect:(CGRect)rect
 {
-  NSPredicate *predicate = [NSPredicate predicateWithBlock:^BOOL(UICollectionViewLayoutAttributes *evaluatedObject, NSDictionary *bindings) {
-    return CGRectIntersectsRect(rect, evaluatedObject.frame);
-  }];
-  
+  NSPredicate *predicate = [NSPredicate predicateWithBlock:^BOOL(UICollectionViewLayoutAttributes *evaluatedObject, NSDictionary *bindings)
+                            {
+                              return CGRectIntersectsRect(rect, evaluatedObject.frame);
+                            }];
   return [_itemAttributes filteredArrayUsingPredicate:predicate];
 }
 
 #pragma mark - Property setters
 
-- (void)setNumberOfItemsInRow:(NSInteger)numberOfItemsInRow
+- (void)setNumberOfItemsInSide:(NSInteger)numberOfItemsInSide
 {
-  if (_numberOfItemsInRow != numberOfItemsInRow)
+  if (_numberOfItemsInSide != numberOfItemsInSide)
   {
-    _numberOfItemsInRow = numberOfItemsInRow;
+    _numberOfItemsInSide = numberOfItemsInSide;
     [self invalidateLayout];
   }
 }
 
-- (void)setItemHeight:(CGFloat)itemHeight
+- (void)setItemLength:(CGFloat)itemLength
 {
-  if (_itemHeight != itemHeight)
+  if (_itemLength != itemLength)
   {
-    _itemHeight = itemHeight;
+    _itemLength = itemLength;
     [self invalidateLayout];
   }
 }
@@ -246,6 +282,15 @@
   if (_itemSpacing != itemSpacing)
   {
     _itemSpacing = itemSpacing;
+    [self invalidateLayout];
+  }
+}
+
+- (void)setDirection:(ASJCollectionViewFillLayoutDirection)direction
+{
+  if (_direction != direction)
+  {
+    _direction = direction;
     [self invalidateLayout];
   }
 }

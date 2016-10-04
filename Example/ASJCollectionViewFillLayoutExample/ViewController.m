@@ -15,11 +15,14 @@ static NSString *const reuseIdentifier = @"cell";
 @interface ViewController () <ASJCollectionViewFillLayoutDelegate>
 
 @property (weak, nonatomic) IBOutlet UICollectionView *aCollectionView;
+@property (strong, nonatomic) ASJCollectionViewFillLayout *aLayout;
 @property (copy, nonatomic) NSArray *objects;
+@property (weak, nonatomic) IBOutlet UISegmentedControl *directionSegmentedControl;
 
 - (void)setup;
 - (void)setupCollectionViewData;
 - (void)setupLayout;
+- (IBAction)directionChanged:(id)sender;
 
 @end
 
@@ -29,12 +32,6 @@ static NSString *const reuseIdentifier = @"cell";
 {
   [super viewDidLoad];
   [self setup];
-}
-
-- (void)didReceiveMemoryWarning
-{
-  [super didReceiveMemoryWarning];
-  // Dispose of any resources that can be recreated.
 }
 
 #pragma mark - Setup
@@ -47,9 +44,10 @@ static NSString *const reuseIdentifier = @"cell";
 
 - (void)setupLayout
 {
-  ASJCollectionViewFillLayout *myLayout = [[ASJCollectionViewFillLayout alloc] init];
-  myLayout.delegate = self;
-  _aCollectionView.collectionViewLayout = myLayout;
+  _aLayout = [[ASJCollectionViewFillLayout alloc] init];
+  _aLayout.delegate = self;
+  _aLayout.direction = ASJCollectionViewFillLayoutVertical;
+  _aCollectionView.collectionViewLayout = _aLayout;
 }
 
 - (void)setupCollectionViewData
@@ -60,6 +58,12 @@ static NSString *const reuseIdentifier = @"cell";
     [temp addObject:[NSString stringWithFormat:@"Item %d", i+1]];
   }
   _objects = [NSArray arrayWithArray:temp];
+}
+
+- (IBAction)directionChanged:(id)sender
+{
+  NSInteger selectedSegmentIndex = _directionSegmentedControl.selectedSegmentIndex;
+  _aLayout.direction = (ASJCollectionViewFillLayoutDirection)selectedSegmentIndex;
 }
 
 #pragma mark <UICollectionViewDataSource>
@@ -89,9 +93,14 @@ static NSString *const reuseIdentifier = @"cell";
 
 #pragma mark - ASJCollectionViewFillLayoutDelegate
 
-- (NSInteger)numberOfItemsInRow
+- (NSInteger)numberOfItemsInSide
 {
   return 3;
+}
+
+- (CGFloat)itemLength
+{
+  return 100.0f;
 }
 
 - (CGFloat)itemSpacing
