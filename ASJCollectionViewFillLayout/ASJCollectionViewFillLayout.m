@@ -164,8 +164,7 @@
     CGFloat itemWidth = 0.0f;
     
     // calculate item size. extra items will have different widths
-    CGSize itemSize = CGSizeZero;
-    if (self.stretchesLastItems  && _extraIndexes.count && [_extraIndexes containsIndex:i])
+    if (_stretchesLastItems && _extraIndexes.count && [_extraIndexes containsIndex:i])
     {
       CGFloat availableSpaceForItems = self.collectionView.bounds.size.width - (2 * _itemSpacing) - ((_extraIndexes.count - 1) * _itemSpacing);
       itemWidth = availableSpaceForItems / _extraIndexes.count;
@@ -237,7 +236,7 @@
     CGFloat itemHeight = 0.0f;
     
     // calculate item size. extra items will have different heights
-    if (_extraIndexes.count && [_extraIndexes containsIndex:i])
+    if (_stretchesLastItems && _extraIndexes.count && [_extraIndexes containsIndex:i])
     {
       CGFloat availableSpaceForItems = self.collectionView.bounds.size.height - (2 * _itemSpacing) - ((_extraIndexes.count - 1) * _itemSpacing);
       itemHeight = availableSpaceForItems / _extraIndexes.count;
