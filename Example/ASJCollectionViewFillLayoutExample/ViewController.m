@@ -9,17 +9,20 @@
 #import "ViewController.h"
 #import "ASJCollectionViewFillLayout.h"
 
-static NSInteger const kNoOfItems = 64;
+static NSInteger const kNoOfItems = 14;
 static NSString *const reuseIdentifier = @"cell";
 
 @interface ViewController () <ASJCollectionViewFillLayoutDelegate>
 
 @property (weak, nonatomic) IBOutlet UICollectionView *aCollectionView;
+@property (strong, nonatomic) ASJCollectionViewFillLayout *aLayout;
 @property (copy, nonatomic) NSArray *objects;
+@property (weak, nonatomic) IBOutlet UISegmentedControl *directionSegmentedControl;
 
 - (void)setup;
 - (void)setupCollectionViewData;
 - (void)setupLayout;
+- (IBAction)directionChanged:(id)sender;
 
 @end
 
@@ -29,12 +32,6 @@ static NSString *const reuseIdentifier = @"cell";
 {
   [super viewDidLoad];
   [self setup];
-}
-
-- (void)didReceiveMemoryWarning
-{
-  [super didReceiveMemoryWarning];
-  // Dispose of any resources that can be recreated.
 }
 
 #pragma mark - Setup
@@ -47,11 +44,10 @@ static NSString *const reuseIdentifier = @"cell";
 
 - (void)setupLayout
 {
-  ASJCollectionViewFillLayout *myLayout = [[ASJCollectionViewFillLayout alloc] init];
-  myLayout.delegate = self;
-//  myLayout.direction = ASJCollectionViewFillLayoutVertical;
-  myLayout.direction = ASJCollectionViewFillLayoutHorizontal;
-  _aCollectionView.collectionViewLayout = myLayout;
+  _aLayout = [[ASJCollectionViewFillLayout alloc] init];
+  _aLayout.delegate = self;
+  _aLayout.direction = ASJCollectionViewFillLayoutVertical;
+  _aCollectionView.collectionViewLayout = _aLayout;
 }
 
 - (void)setupCollectionViewData
@@ -62,6 +58,12 @@ static NSString *const reuseIdentifier = @"cell";
     [temp addObject:[NSString stringWithFormat:@"Item %d", i+1]];
   }
   _objects = [NSArray arrayWithArray:temp];
+}
+
+- (IBAction)directionChanged:(id)sender
+{
+  NSInteger selectedSegmentIndex = _directionSegmentedControl.selectedSegmentIndex;
+  _aLayout.direction = (ASJCollectionViewFillLayoutDirection)selectedSegmentIndex;
 }
 
 #pragma mark <UICollectionViewDataSource>
@@ -84,7 +86,7 @@ static NSString *const reuseIdentifier = @"cell";
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-  NSString *message = [NSString stringWithFormat:@"Item %d tapped", indexPath.row + 1];
+  NSString *message = [NSString stringWithFormat:@"Item %ld tapped", (long)indexPath.row + 1];
   UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Tap" message:message delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
   [alert show];
 }

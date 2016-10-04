@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
@@ -18,7 +19,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="78q-y1-D5O">
-                                <rect key="frame" x="0.0" y="20" width="600" height="580"/>
+                                <rect key="frame" x="0.0" y="70" width="600" height="530"/>
                                 <color key="backgroundColor" red="0.098039215690000001" green="0.68235294120000001" blue="0.65098039220000004" alpha="0.25" colorSpace="calibratedRGB"/>
                                 <collectionViewLayout key="collectionViewLayout" id="Wtl-fi-pdx"/>
                                 <cells>
@@ -50,22 +51,54 @@
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="feW-ug-POp"/>
                                 </connections>
                             </collectionView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iMQ-y6-3dz">
+                                <rect key="frame" x="0.0" y="20" width="600" height="50"/>
+                                <subviews>
+                                    <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="Ldq-3w-dpj">
+                                        <rect key="frame" x="45" y="11" width="510" height="29"/>
+                                        <segments>
+                                            <segment title="Vertical"/>
+                                            <segment title="Horizontal"/>
+                                        </segments>
+                                        <connections>
+                                            <action selector="directionChanged:" destination="BYZ-38-t0r" eventType="valueChanged" id="qWB-mg-hfd"/>
+                                        </connections>
+                                    </segmentedControl>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="Ldq-3w-dpj" firstAttribute="centerX" secondItem="iMQ-y6-3dz" secondAttribute="centerX" id="HPo-om-cCk"/>
+                                    <constraint firstItem="Ldq-3w-dpj" firstAttribute="width" secondItem="iMQ-y6-3dz" secondAttribute="width" multiplier="0.85" id="Xdh-rO-udR"/>
+                                    <constraint firstItem="Ldq-3w-dpj" firstAttribute="centerY" secondItem="iMQ-y6-3dz" secondAttribute="centerY" id="cXj-zJ-sFq"/>
+                                    <constraint firstAttribute="height" constant="50" id="thm-BY-a0C"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="78q-y1-D5O" firstAttribute="top" secondItem="iMQ-y6-3dz" secondAttribute="bottom" id="0bG-co-cd5"/>
                             <constraint firstAttribute="trailing" secondItem="78q-y1-D5O" secondAttribute="trailing" id="Ih2-ck-vjV"/>
                             <constraint firstItem="78q-y1-D5O" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="OBs-ql-ZaN"/>
+                            <constraint firstItem="iMQ-y6-3dz" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="VPX-uc-06j"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="78q-y1-D5O" secondAttribute="bottom" id="ZVt-d5-s7g"/>
-                            <constraint firstItem="78q-y1-D5O" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="d7K-qA-NJE"/>
+                            <constraint firstItem="78q-y1-D5O" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="100" id="d7K-qA-NJE"/>
+                            <constraint firstItem="iMQ-y6-3dz" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="ixz-Nt-jmh"/>
+                            <constraint firstAttribute="trailing" secondItem="iMQ-y6-3dz" secondAttribute="trailing" id="tnq-G6-BCa"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="d7K-qA-NJE"/>
+                            </mask>
+                        </variation>
                     </view>
                     <connections>
                         <outlet property="aCollectionView" destination="78q-y1-D5O" id="MyN-9P-Xhz"/>
+                        <outlet property="directionSegmentedControl" destination="Ldq-3w-dpj" id="IX2-Py-LG4"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="652" y="411"/>
+            <point key="canvasLocation" x="386" y="449"/>
         </scene>
     </scenes>
 </document>
