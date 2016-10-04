@@ -70,8 +70,9 @@
 
 - (void)setupDefaults
 {
-  self.numberOfItemsInRow = 1;
+  self.numberOfItemsInSide = 1;
   self.itemSpacing = 8.0f;
+  self.direction = ASJCollectionViewFillLayoutVertical;
   self.stretchesLastItems = YES;
 }
 
@@ -230,12 +231,72 @@
   NSInteger numberOfItems = self.numberOfItemsInCollectionView;
   NSMutableArray *layoutAttributes = [[NSMutableArray alloc] init];
   
-  // calculate content height
-  UICollectionViewLayoutAttributes *attributes = tempAttributes.lastObject;
-  contentHeight = attributes.frame.origin.y + attributes.frame.size.height;
-  _contentSize = CGSizeMake(contentWidth, contentHeight + _itemSpacing);
-  _itemAttributes = [NSArray arrayWithArray:tempAttributes];
-  self.collectionView.alwaysBounceVertical = YES;
+  for (int i = 0; i < numberOfItems; i++)
+  {
+    CGFloat itemHeight = 0.0f;
+    
+    // calculate item size. extra items will have different heights
+    if (_extraIndexes.count && [_extraIndexes containsIndex:i])
+    {
+      CGFloat availableSpaceForItems = self.collectionView.bounds.size.height - (2 * _itemSpacing) - ((_extraIndexes.count - 1) * _itemSpacing);
+      itemHeight = availableSpaceForItems / _extraIndexes.count;
+    }
+    else
+    {
+      CGFloat availableSpaceForItems = self.collectionView.bounds.size.height - (2 * _itemSpacing) - ((_numberOfItemsInSide - 1) * _itemSpacing);
+      itemHeight = availableSpaceForItems / _numberOfItemsInSide;
+    }
+    
+    // by default, item height is equal to item width
+    // if not setting default item height
+    if (!_itemLength) {
+      _itemLength = itemHeight;
+    }
+    CGSize itemSize = CGSizeMake(_itemLength, itemHeight);
+    
+    if (itemSize.width > columnWidth) {
+      columnWidth = itemSize.width;
+    }
+    
+    // create layout attributes objects
+    NSIndexPath *indexPath = [NSIndexPath indexPathForItem:i inSection:0];
+    UICollectionViewLayoutAttributes *attributes = [UICollectionViewLayoutAttributes layoutAttributesForCellWithIndexPath:indexPath];
+    attributes.frame = CGRectIntegral(CGRectMake(xOffset, yOffset, itemSize.width, itemSize.height));
+    [layoutAttributes addObject:attributes];
+    
+    // move 'y' for next item
+    yOffset = yOffset + itemSize.height + _itemSpacing;
+    row++;
+    
+    // if item was the last one in current column
+    // special case handled for when number of items is lesser than
+    // number of items in row
+    if ((numberOfItems < _numberOfItemsInSide && row == numberOfItems) ||
+        (row == _numberOfItemsInSide))
+    {
+      if (xOffset > contentWidth) {
+        contentWidth = xOffset;
+      }
+      
+      // reset
+      row = 0;
+      yOffset = _itemSpacing;
+      xOffset += columnWidth + _itemSpacing;
+    }
+    
+    // calculate content width
+    UICollectionViewLayoutAttributes *lastAttributes = layoutAttributes.lastObject;
+    contentWidth = lastAttributes.frame.origin.x + lastAttributes.frame.size.width;
+    _contentSize = CGSizeMake(contentWidth + _itemSpacing, contentHeight);
+    _itemAttributes = [NSArray arrayWithArray:layoutAttributes];
+  }
+}
+
+#pragma mark - Property getters
+
+- (NSInteger)numberOfItemsInCollectionView
+{
+  return [self.collectionView numberOfItemsInSection:0];
 }
 
 - (CGSize)collectionViewContentSize
