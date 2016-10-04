@@ -109,9 +109,10 @@
   {
     _numberOfItemsInSide = [_delegate numberOfItemsInSide];
   }
-  NSAssert(_numberOfItemsInRow > 0, @"Collection view must have at least one item in row. Set 'numberOfItemsInRow'.");
+  if ([_delegate respondsToSelector:@selector(itemLength)])
+  NSAssert(_numberOfItemsInSide > 0, @"Collection view must have at least one item in row. Set 'numberOfItemsInSide'.");
   
-  if ([_delegate respondsToSelector:@selector(itemHeight)])
+  if ([_delegate respondsToSelector:@selector(itemLength)])
   {
     _itemLength = [_delegate itemLength];
   }
