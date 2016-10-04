@@ -50,7 +50,10 @@ typedef NS_ENUM(NSInteger, ASJCollectionViewFillLayoutDirection)
 @property (assign, nonatomic) NSInteger numberOfItemsInSide;
 
 /**
- *  Sets the height for a collection view item. By default, the height is set the same as the width that is calculated.
+ *  Sets the width or height for a collection view item, depending on the direction of the layout.
+ *  By default, the direction is `ASJCollectionViewFillLayoutVertical` for which the item width will be calculated and the item height may vary.
+ *  For `ASJCollectionViewFillLayoutVertical`, the item height will be calculated and the item width may vary.
+ *  If `itemLength` is not set, it defaults to the calculated item width or height.
  */
 @property (assign, nonatomic) CGFloat itemLength;
 
