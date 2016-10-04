@@ -70,17 +70,17 @@ typedef NS_ENUM(NSInteger, ASJCollectionViewFillLayoutDirection)
 @property (assign, nonatomic) ASJCollectionViewFillLayoutDirection direction;
 
 /**
+ *  Set the stretching behavior for the items in the last "row"
+ *  If set to NO all items will have the same size, YES stretches them
+ *  across the colleciton view width (default behavior)
+ */
+@property (assign, nonatomic) BOOL stretchesLastItems;
+
+/**
  *  The delegate for the fill layout. You must set this
  *  in order to use the methods defined in the protocol.
  */
 @property (nullable, weak, nonatomic) id<ASJCollectionViewFillLayoutDelegate> delegate;
-
-/**
- *  Set the stretching behavior for the items in the last "row"
- *  If set to NO all items will have the same size, YES stretches them 
- *  across the colleciton view width (default behavior)
- */
-@property (assign, nonatomic) BOOL stretchesLastItems;
 
 @end
 
