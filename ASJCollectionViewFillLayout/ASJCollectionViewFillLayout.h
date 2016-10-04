@@ -34,8 +34,8 @@ typedef NS_ENUM(NSInteger, ASJCollectionViewFillLayoutDirection)
 @protocol ASJCollectionViewFillLayoutDelegate <NSObject>
 
 @optional
-- (NSInteger)numberOfItemsInRow;
-- (CGFloat)itemHeight;
+- (NSInteger)numberOfItemsInSide;
+- (CGFloat)itemLength;
 - (CGFloat)itemSpacing;
 
 @end
@@ -43,17 +43,22 @@ typedef NS_ENUM(NSInteger, ASJCollectionViewFillLayoutDirection)
 @interface ASJCollectionViewFillLayout : UICollectionViewLayout
 
 /**
- *  Sets the number of items in one row. The width for each item will be calculated accordingly.
+ *  Sets the number of items in one row or column. For `ASJCollectionViewFillLayoutVertical`, the collection view will scroll vertically so this property refers to the item count in one row.
+ *  Similarly, for `ASJCollectionViewFillLayoutHorizontal`, the collection view scrolls horizontally and this property refers to the item count in one column.
+ *  In each case, the width or height for each item will be calculated accordingly.
  */
-@property (assign, nonatomic) NSInteger numberOfItemsInRow;
+@property (assign, nonatomic) NSInteger numberOfItemsInSide;
 
 /**
- *  Sets the height for a collection view item. By default, the height is set the same as the width that is calculated.
+ *  Sets the width or height for a collection view item, depending on the direction of the layout.
+ *  By default, the direction is `ASJCollectionViewFillLayoutVertical` for which the item width will be calculated and the item height may vary.
+ *  For `ASJCollectionViewFillLayoutVertical`, the item height will be calculated and the item width may vary.
+ *  If `itemLength` is not set, it defaults to the calculated item width or height.
  */
-@property (assign, nonatomic) CGFloat itemHeight;
+@property (assign, nonatomic) CGFloat itemLength;
 
 /**
- *  Sets the "inter-item spacing" between two collection
+ *  Sets the 'inter-item spacing' between two collection
  *  view items. This will also set the padding between an
  *  item and the collection view boundary.
  */
