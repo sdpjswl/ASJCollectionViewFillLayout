@@ -47,7 +47,7 @@ For example:
 ASJCollectionViewFillLayout *aFillLayout = [[ASJCollectionViewFillLayout alloc] init];
 aFillLayout.numberOfItemsInSide = 3;
 aFillLayout.itemSpacing = 5.0f;
-aFillLayout.itemHeight = 75.0f;
+aFillLayout.itemLength = 75.0f;
 aFillLayout.stretchesLastItems = NO;
 aCollectionView.collectionViewLayout = aFillLayout;
 ```
