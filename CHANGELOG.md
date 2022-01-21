@@ -1,5 +1,11 @@
 # Change Log
 
+## [2.1](https://github.com/sudeepjaiswal/ASJCollectionViewFillLayout/releases/tag/2.1)
+Released on Friday, 21 Jan, 2022.
+
+#### Added
+* Merged [pull request #5](https://github.com/sdpjswl/ASJCollectionViewFillLayout/pull/3) that fixes `numberOfItemsInSection` crash.
+
 ## [2.0](https://github.com/sudeepjaiswal/ASJCollectionViewFillLayout/releases/tag/2.0)
 Released on Tuesday, 4 October, 2016.
 
