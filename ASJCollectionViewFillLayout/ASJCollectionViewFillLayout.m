@@ -296,7 +296,12 @@
 
 - (NSInteger)numberOfItemsInCollectionView
 {
-  return [self.collectionView numberOfItemsInSection:0];
+    if (self.collectionView.numberOfSections >0){
+        return [self.collectionView numberOfItemsInSection:0];
+    }else{
+        //Avoid crash if no sections are available
+        return 0;
+    }
 }
 
 - (CGSize)collectionViewContentSize
