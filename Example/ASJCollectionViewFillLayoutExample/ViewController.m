@@ -87,8 +87,10 @@ static NSString *const reuseIdentifier = @"cell";
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
   NSString *message = [NSString stringWithFormat:@"Item %ld tapped", (long)indexPath.row + 1];
-  UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Tap" message:message delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-  [alert show];
+  UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Tap" message:message preferredStyle:UIAlertControllerStyleAlert];
+  UIAlertAction *ok = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
+  [alert addAction:ok];
+  [self presentViewController:alert animated:YES completion:nil];
 }
 
 #pragma mark - ASJCollectionViewFillLayoutDelegate
