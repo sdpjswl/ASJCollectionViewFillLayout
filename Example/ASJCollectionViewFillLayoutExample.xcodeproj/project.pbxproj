@@ -48,9 +48,9 @@
 				C01AE3291C05DF96006EE67F /* ASJCollectionViewFillLayoutExample */,
 				C01AE3281C05DF96006EE67F /* Products */,
 			);
-			indentWidth = 2;
+			indentWidth = 4;
 			sourceTree = "<group>";
-			tabWidth = 2;
+			tabWidth = 4;
 		};
 		C01AE3281C05DF96006EE67F /* Products */ = {
 			isa = PBXGroup;
@@ -71,7 +71,6 @@
 				C01AE3331C05DF96006EE67F /* Main.storyboard */,
 				C01AE3381C05DF96006EE67F /* LaunchScreen.storyboard */,
 				C01AE3361C05DF96006EE67F /* Assets.xcassets */,
-				C01AE33B1C05DF96006EE67F /* Info.plist */,
 				C01AE32A1C05DF96006EE67F /* Supporting Files */,
 			);
 			path = ASJCollectionViewFillLayoutExample;
@@ -80,6 +79,7 @@
 		C01AE32A1C05DF96006EE67F /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				C01AE33B1C05DF96006EE67F /* Info.plist */,
 				C01AE32B1C05DF96006EE67F /* main.m */,
 			);
 			name = "Supporting Files";

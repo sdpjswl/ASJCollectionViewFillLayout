@@ -27,8 +27,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 typedef NS_ENUM(NSInteger, ASJCollectionViewFillLayoutDirection)
 {
-  ASJCollectionViewFillLayoutVertical,
-  ASJCollectionViewFillLayoutHorizontal
+    ASJCollectionViewFillLayoutVertical,
+    ASJCollectionViewFillLayoutHorizontal
 };
 
 @protocol ASJCollectionViewFillLayoutDelegate <NSObject>
