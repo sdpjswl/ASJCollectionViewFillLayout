@@ -9,7 +9,7 @@
 #import "ViewController.h"
 #import "ASJCollectionViewFillLayout.h"
 
-static NSInteger const kNoOfItems = 17;
+static NSInteger const kNoOfItems = 30;
 static NSString *const reuseIdentifier = @"cell";
 
 @interface ViewController () <ASJCollectionViewFillLayoutDelegate>
@@ -48,9 +48,6 @@ static NSString *const reuseIdentifier = @"cell";
     _aLayout.delegate = self;
     _aLayout.direction = ASJCollectionViewFillLayoutVertical;
     _aCollectionView.collectionViewLayout = _aLayout;
-    
-    [_aCollectionView registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"header"];
-    [_aCollectionView registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:@"footer"];
 }
 
 - (void)setupCollectionViewData
