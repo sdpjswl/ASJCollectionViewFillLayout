@@ -48,6 +48,9 @@ static NSString *const reuseIdentifier = @"cell";
     _aLayout.delegate = self;
     _aLayout.direction = ASJCollectionViewFillLayoutVertical;
     _aCollectionView.collectionViewLayout = _aLayout;
+    
+    [_aCollectionView registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"header"];
+    [_aCollectionView registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:@"footer"];
 }
 
 - (void)setupCollectionViewData
@@ -82,6 +85,16 @@ static NSString *const reuseIdentifier = @"cell";
     return cell;
 }
 
+- (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath
+{
+    if (kind == UICollectionElementKindSectionHeader) {
+        return [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"header" forIndexPath:indexPath];
+    }
+    else {
+        return [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:@"footer" forIndexPath:indexPath];
+    }
+}
+
 #pragma mark <UICollectionViewDelegate>
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
@@ -108,6 +121,16 @@ static NSString *const reuseIdentifier = @"cell";
 - (CGFloat)itemSpacing
 {
     return 5.0f;
+}
+
+- (CGFloat)headerHeight
+{
+    return 160.0f;
+}
+
+- (CGFloat)footerHeight
+{
+    return 80.0f;
 }
 
 @end
