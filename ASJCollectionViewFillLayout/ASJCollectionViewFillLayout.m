@@ -72,6 +72,8 @@
 {
     self.numberOfItemsInSide = 1;
     self.itemSpacing = 8.0f;
+    self.headerHeight = 44.0f;
+    self.footerHeight = 44.0f;
     self.direction = ASJCollectionViewFillLayoutVertical;
     self.stretchesLastItems = YES;
 }
@@ -159,6 +161,14 @@
     NSInteger numberOfItems = self.numberOfItemsInCollectionView;
     NSMutableArray *layoutAttributes = [[NSMutableArray alloc] init];
     
+    // header
+    UICollectionViewLayoutAttributes *headerAttributes = [UICollectionViewLayoutAttributes layoutAttributesForSupplementaryViewOfKind:UICollectionElementKindSectionHeader withIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
+    headerAttributes.frame = CGRectMake(0.0, 0.0, self.collectionView.bounds.size.width, _headerHeight);
+    [layoutAttributes addObject:headerAttributes];
+    
+    // update y
+    yOffset += _headerHeight;
+    
     for (int i = 0; i < numberOfItems; i++)
     {
         CGFloat itemWidth = 0.0f;
@@ -211,13 +221,21 @@
             xOffset = _itemSpacing;
             yOffset += rowHeight + _itemSpacing;
         }
-        
-        // calculate content height
-        UICollectionViewLayoutAttributes *lastAttributes = layoutAttributes.lastObject;
-        contentHeight = lastAttributes.frame.origin.y + lastAttributes.frame.size.height;
-        _contentSize = CGSizeMake(contentWidth, contentHeight + _itemSpacing);
-        _itemAttributes = [NSArray arrayWithArray:layoutAttributes];
     }
+    
+    // update y
+    yOffset += rowHeight + _itemSpacing;
+    
+    // footer
+    UICollectionViewLayoutAttributes *footerAttributes = [UICollectionViewLayoutAttributes layoutAttributesForSupplementaryViewOfKind:UICollectionElementKindSectionFooter withIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
+    footerAttributes.frame = CGRectMake(0.0, yOffset, self.collectionView.bounds.size.width, _footerHeight);
+    [layoutAttributes addObject:footerAttributes];
+    
+    // calculate content height
+    UICollectionViewLayoutAttributes *lastAttributes = layoutAttributes.lastObject;
+    contentHeight = lastAttributes.frame.origin.y + lastAttributes.frame.size.height;
+    _contentSize = CGSizeMake(contentWidth, contentHeight);
+    _itemAttributes = [NSArray arrayWithArray:layoutAttributes];
 }
 
 - (void)prepareHorizontalLayout
@@ -230,6 +248,14 @@
     NSUInteger row = 0;
     NSInteger numberOfItems = self.numberOfItemsInCollectionView;
     NSMutableArray *layoutAttributes = [[NSMutableArray alloc] init];
+    
+    // header
+    UICollectionViewLayoutAttributes *headerAttributes = [UICollectionViewLayoutAttributes layoutAttributesForSupplementaryViewOfKind:UICollectionElementKindSectionHeader withIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
+    headerAttributes.frame = CGRectMake(0.0, 0.0, _headerHeight, self.collectionView.bounds.size.height);
+    //  [layoutAttributes addObject:headerAttributes];
+    
+    // update x
+    //  xOffset += _headerHeight + _itemSpacing;
     
     for (int i = 0; i < numberOfItems; i++)
     {
@@ -284,10 +310,18 @@
             xOffset += columnWidth + _itemSpacing;
         }
         
+        // update x
+        xOffset += columnWidth + _itemSpacing;
+        
+        // footer
+        UICollectionViewLayoutAttributes *footerAttributes = [UICollectionViewLayoutAttributes layoutAttributesForSupplementaryViewOfKind:UICollectionElementKindSectionFooter withIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
+        footerAttributes.frame = CGRectMake(xOffset, 0.0, _footerHeight, self.collectionView.bounds.size.height);
+        //    [layoutAttributes addObject:footerAttributes];
+        
         // calculate content width
         UICollectionViewLayoutAttributes *lastAttributes = layoutAttributes.lastObject;
         contentWidth = lastAttributes.frame.origin.x + lastAttributes.frame.size.width;
-        _contentSize = CGSizeMake(contentWidth + _itemSpacing, contentHeight);
+        _contentSize = CGSizeMake(contentWidth, contentHeight);
         _itemAttributes = [NSArray arrayWithArray:layoutAttributes];
     }
 }
@@ -348,6 +382,24 @@
     if (_itemSpacing != itemSpacing)
     {
         _itemSpacing = itemSpacing;
+        [self invalidateLayout];
+    }
+}
+
+- (void)setHeaderHeight:(CGFloat)headerHeight
+{
+    if (_headerHeight != headerHeight)
+    {
+        _headerHeight = headerHeight;
+        [self invalidateLayout];
+    }
+}
+
+- (void)setFooterHeight:(CGFloat)footerHeight
+{
+    if (_footerHeight != footerHeight)
+    {
+        _footerHeight = footerHeight;
         [self invalidateLayout];
     }
 }

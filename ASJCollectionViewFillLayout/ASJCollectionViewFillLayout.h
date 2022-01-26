@@ -84,6 +84,16 @@ typedef NS_ENUM(NSInteger, ASJCollectionViewFillLayoutDirection)
 @property (assign, nonatomic) CGFloat itemSpacing;
 
 /**
+ *  Sets the height for the header. Defaults to 44.
+ */
+@property (assign, nonatomic) CGFloat headerHeight;
+
+/**
+ *  Sets the height for the footer. Defaults to 44.
+ */
+@property (assign, nonatomic) CGFloat footerHeight;
+
+/**
  *  Arranges the collection view items vertically or horizontally. Defaults to `ASJCollectionViewFillLayoutVertical`.
  */
 @property (assign, nonatomic) ASJCollectionViewFillLayoutDirection direction;
